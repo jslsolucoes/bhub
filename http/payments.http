@@ -1,0 +1,11 @@
+POST http://localhost:8081/api/v1/payments
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "createdAt": "2020-01-01T00:00:00Z",
+  "payload": {
+    "type": "book",
+    "id": 1
+  }
+}
