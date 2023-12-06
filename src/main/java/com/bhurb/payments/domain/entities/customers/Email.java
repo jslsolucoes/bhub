@@ -1,4 +1,4 @@
-package com.bhurb.payments.domain.entities;
+package com.bhurb.payments.domain.entities.customers;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
