@@ -1,5 +1,8 @@
-package com.bhurb.payments.application.payments;
+package com.bhurb.payments.application.payments.handlers;
 
+import com.bhurb.payments.application.payments.chain.Filter;
+import com.bhurb.payments.application.payments.chain.FilterChain;
+import com.bhurb.payments.application.payments.chain.FilterContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

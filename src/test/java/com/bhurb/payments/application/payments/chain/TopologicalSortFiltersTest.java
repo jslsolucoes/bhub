@@ -1,4 +1,4 @@
-package com.bhurb.payments.application.payments;
+package com.bhurb.payments.application.payments.chain;
 
 import com.bhurb.payments.junit.AbstractTest;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package com.bhurb.payments.application.payments;
+package com.bhurb.payments.application.payments.chain;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
@@ -11,6 +11,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
+
+
+/**
+ * Topological sort of filters.
+ * See reference for how topological sort works <a href="https://en.wikipedia.org/wiki/Topological_sorting">...</a>
+ */
 
 public class TopologicalSortFilters {
 

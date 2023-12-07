@@ -1,9 +1,10 @@
-package com.bhurb.payments.application.payments;
+package com.bhurb.payments.application.payments.chain;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
-class FilterChainProcessor {
+public class FilterChainProcessor {
 
     private final Map<Class<? extends Filter>, Filter> filters;
 

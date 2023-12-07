@@ -1,5 +1,5 @@
 
-package com.bhurb.payments.application.payments;
+package com.bhurb.payments.application.payments.chain;
 
 
 import java.util.HashMap;

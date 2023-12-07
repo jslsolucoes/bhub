@@ -1,4 +1,4 @@
-package com.bhurb.payments.application.payments;
+package com.bhurb.payments.application.payments.chain;
 
 import com.bhurb.payments.junit.AbstractTest;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +13,7 @@ class FilterChainProcessorTest extends AbstractTest {
 
     @Test
     @DisplayName("Chain should call filter in any order when all priorities is not defined")
-    void chainShouldCallFilterInAnyOrderIrPriorityNotDefined() {
+    void chainShouldCallFilterInAnyOrderWhenAllPrioritiesIsNotDefined(){
 
         var called = new ArrayList<Filter>();
 
@@ -54,16 +54,18 @@ class FilterChainProcessorTest extends AbstractTest {
             called.add(filter);
         };
         var filterWithPriority0 = new FilterWithPriority0(priorityFilterListener);
+        var filterWithPriorityBetween0And1 = new FilterWithPriorityBetween0And1(priorityFilterListener);
         var filterWithPriority1 = new FilterWithPriority1(priorityFilterListener);
 
         var filterChainProcessor = new FilterChainProcessor();
-        filterChainProcessor.register(filterWithPriority0);
         filterChainProcessor.register(filterWithPriority1);
+        filterChainProcessor.register(filterWithPriority0);
+        filterChainProcessor.register(filterWithPriorityBetween0And1);
 
         var filterContext = new FilterContext();
         filterChainProcessor.next(filterContext);
 
-        var expected = List.of(filterWithPriority0, filterWithPriority1);
+        var expected = List.of(filterWithPriority0, filterWithPriorityBetween0And1, filterWithPriority1);
         assertEquals(expected, called);
     }
 
@@ -146,6 +148,15 @@ class FilterChainProcessorTest extends AbstractTest {
         FilterWithPriority0(final boolean shouldCallNext,
                             final FilterWithPriorityListener filterWithPriorityListener) {
             super(shouldCallNext, filterWithPriorityListener);
+        }
+    }
+
+    @FilterPriority(after = FilterWithPriority0.class,
+            before = FilterWithPriority1.class)
+    static class FilterWithPriorityBetween0And1 extends FilterWithPriority {
+
+        FilterWithPriorityBetween0And1(final FilterWithPriorityListener filterWithPriorityListener) {
+            super(true, filterWithPriorityListener);
         }
     }
 

@@ -1,5 +1,9 @@
-package com.bhurb.payments.application.payments;
+package com.bhurb.payments.application.payments.handlers;
 
+import com.bhurb.payments.application.payments.chain.Filter;
+import com.bhurb.payments.application.payments.chain.FilterChain;
+import com.bhurb.payments.application.payments.chain.FilterContext;
+import com.bhurb.payments.application.payments.chain.FilterPriority;
 import com.bhurb.payments.domain.model.entities.payments.specs.IsBookSpec;
 import com.bhurb.payments.domain.model.entities.payments.specs.PaymentSpec;
 import org.slf4j.Logger;
