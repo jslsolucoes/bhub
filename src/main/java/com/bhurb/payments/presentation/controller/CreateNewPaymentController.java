@@ -1,6 +1,8 @@
 package com.bhurb.payments.presentation.controller;
 
-import com.bhurb.payments.domain.events.EventDispatcher;
+import com.bhurb.payments.application.payments.PaymentProcessor;
+import com.bhurb.payments.domain.model.entities.payments.specs.PaymentSpec;
+import com.bhurb.payments.domain.model.entities.products.Membership.MembershipPlan;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -9,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @RestController
@@ -24,11 +28,11 @@ import java.time.LocalDateTime;
 @Validated
 public class CreateNewPaymentController {
 
-    private final EventDispatcher eventDispatcher;
+    private final PaymentProcessor paymentProcessor;
 
     @Autowired
-    public CreateNewPaymentController(EventDispatcher eventDispatcher) {
-        this.eventDispatcher = eventDispatcher;
+    public CreateNewPaymentController(final PaymentProcessor paymentProcessor) {
+        this.paymentProcessor = paymentProcessor;
     }
 
     @Operation(summary = "Schedule payments for processing", tags = {ApiInfo.Tags.PAYMENTS, ApiInfo.Tags.PUBLIC})
@@ -38,14 +42,55 @@ public class CreateNewPaymentController {
     })
     @PostMapping("/payments")
     public PaymentResponse createNewPayment(@RequestBody @Valid final PaymentRequest paymentRequest) {
-        eventDispatcher.sendMail("aa@aa.com", "teste", "asd");
-        return new PaymentResponse();
+        var asPaymentProcessorInput = paymentRequest.asPaymentProcessorInput();
+        var paymentProcessorOutput = paymentProcessor.process(asPaymentProcessorInput);
+        return new PaymentResponse(paymentProcessorOutput.paymentId());
     }
 
     @Schema(name = "PaymentRequest")
-    public record PaymentRequest(@NotNull Long productId, @NotNull LocalDateTime createdAt,
+    public record PaymentRequest(@NotNull Long customerId,
+                                 @NotNull String customerEmail,
+                                 @NotNull LocalDateTime createdAt,
+                                 @NotNull BigDecimal amount,
                                  @Valid @NotNull Payload payload) {
 
+
+        public PaymentSpec asPaymentSpec() {
+
+            switch (payload) {
+                case Book book -> {
+                    return new com.bhurb.payments.domain.model.entities.products.Book(
+                            book.id(),
+                            book.name(),
+                            book.author(),
+                            book.bookType()
+                    );
+                }
+                case Membership membership -> {
+                    return new com.bhurb.payments.domain.model.entities.products.Membership(
+                            membership.id(),
+                            membership.membershipPlan()
+                    );
+                }
+                case Video video -> {
+                    return new com.bhurb.payments.domain.model.entities.products.Video(
+                            video.id(),
+                            video.name()
+                    );
+                }
+                default -> throw new IllegalArgumentException("Invalid payload type");
+            }
+        }
+
+        public PaymentProcessor.PaymentProcessorInput asPaymentProcessorInput() {
+            return new PaymentProcessor.PaymentProcessorInput(
+                    createdAt,
+                    customerId,
+                    customerEmail,
+                    amount,
+                    asPaymentSpec()
+            );
+        }
 
         @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
         @JsonSubTypes({
@@ -56,22 +101,27 @@ public class CreateNewPaymentController {
         interface Payload {
         }
 
-        record Book(@NotNull @JsonProperty("id") long id) implements Payload {
+        record Book(@NotNull @JsonProperty("id") Long id,
+                    @NotBlank @JsonProperty("name") String name,
+                    @NotBlank @JsonProperty("name") String author,
+                    @NotNull com.bhurb.payments.domain.model.entities.products.Book.BookType bookType) implements Payload {
 
         }
 
-        record Membership(@NotNull @JsonProperty("id") long id) implements Payload {
+        record Membership(@NotNull @JsonProperty("id") long id,
+                          @NotNull MembershipPlan membershipPlan) implements Payload {
 
         }
 
-        record Video(@NotNull @JsonProperty("id") long id) implements Payload {
+        record Video(@NotNull @JsonProperty("id") long id,
+                     @NotBlank @JsonProperty("name") String name) implements Payload {
 
         }
 
     }
 
     @Schema(name = "PaymentResponse")
-    public record PaymentResponse() {
+    public record PaymentResponse(Long id) {
 
     }
 

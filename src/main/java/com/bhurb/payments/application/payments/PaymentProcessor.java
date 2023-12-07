@@ -1,16 +1,16 @@
 package com.bhurb.payments.application.payments;
 
 
-import com.bhurb.payments.domain.model.entities.payments.specs.*;
-import com.bhurb.payments.domain.model.entities.products.Book;
+import com.bhurb.payments.domain.model.entities.payments.specs.PaymentSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
 public class PaymentProcessor {
-
 
 
     @Autowired
@@ -20,31 +20,20 @@ public class PaymentProcessor {
 
     public PaymentProcessorOutput process(final PaymentProcessorInput paymentProcessorInput) {
 
-        var book = new Book(1L, "Intensive data structures and algorithms", "Some author", Book.BookType.DIGITAL);
 
-        var isBookSpec = new IsBookSpec();
-        var isPhysicalSpec = new IsPhysicalSpec();
-        var isBookOrIsPhysical = Spec.or(isBookSpec, isPhysicalSpec);
-        var isNewMembership = new IsNewMembershipSpec();
-
-
-        var isBook = isBookSpec.isSatisfiedBy(book);
-        var isPhysicalBook = isPhysicalSpec.isSatisfiedBy(book);
-        var isBookOrIsPhysicalBook = isBookOrIsPhysical.isSatisfiedBy(book);
-
-
-
-
-
-        return new PaymentProcessorOutput(paymentProcessorInput.productId());
+        return new PaymentProcessorOutput(1L);
     }
 
 
-    public record PaymentProcessorInput(long productId) {
+    public record PaymentProcessorInput(LocalDateTime createdAt,
+                                        Long customerId,
+                                        String customerEmail,
+                                        BigDecimal amount,
+                                        PaymentSpec paymentSpec) {
 
     }
 
-    public record PaymentProcessorOutput(long productId) {
+    public record PaymentProcessorOutput(Long paymentId) {
 
     }
 }
