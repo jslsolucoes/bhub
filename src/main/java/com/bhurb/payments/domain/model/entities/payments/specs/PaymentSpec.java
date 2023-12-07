@@ -1,13 +1,11 @@
 package com.bhurb.payments.domain.model.entities.payments.specs;
 
-import com.bhurb.payments.domain.model.entities.products.MembershipPayment.MembershipPlan;
-
 public interface PaymentSpec {
     default boolean isBook() {
         return false;
     }
 
-    default boolean isMembershipUpgrade(final MembershipPlan newPlan) {
+    default boolean isMembershipUpgrade() {
         return false;
     }
 

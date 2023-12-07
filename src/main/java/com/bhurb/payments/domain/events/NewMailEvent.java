@@ -2,10 +2,10 @@ package com.bhurb.payments.domain.events;
 
 import org.springframework.context.ApplicationEvent;
 
-public class MailScheduledEvent extends ApplicationEvent
-        implements DomainEvent<MailScheduledEvent.MailCreatedEventDetails> {
+public class NewMailEvent extends ApplicationEvent
+        implements DomainEvent<NewMailEvent.MailCreatedEventDetails> {
 
-    public MailScheduledEvent(final String to, final String subject, final String body) {
+    public NewMailEvent(final String to, final String subject, final String body) {
         super(new MailCreatedEventDetails(to, subject, body));
     }
 

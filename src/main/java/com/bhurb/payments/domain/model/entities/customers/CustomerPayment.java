@@ -1,9 +1,12 @@
 package com.bhurb.payments.domain.model.entities.customers;
 
 import com.bhurb.payments.domain.model.entities.payments.Payment;
+import com.bhurb.payments.domain.model.entities.products.MembershipPayment;
 import com.bhurb.payments.domain.model.valueobject.Email;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.Optional;
 
 @Entity
 public class CustomerPayment {
@@ -11,6 +14,9 @@ public class CustomerPayment {
     @Id
     @GeneratedValue
     private final Long id;
+
+    @Enumerated(EnumType.STRING)
+    private final MembershipPayment.MembershipPlan membershipPlan;
 
     @NotNull
     private final Long refId;
@@ -26,18 +32,21 @@ public class CustomerPayment {
 
     @Deprecated
     public CustomerPayment() {
-        this(null, null, null, null, null);
+        this(null, null, null,
+                null, null, null);
     }
 
     public CustomerPayment(final Long id,
                            final Long refId,
                            final String name,
                            final Email email,
+                           final MembershipPayment.MembershipPlan membershipPlan,
                            final Payment payment) {
         this.id = id;
         this.refId = refId;
         this.name = name;
         this.email = email;
+        this.membershipPlan = membershipPlan;
         this.payment = payment;
     }
 
@@ -59,6 +68,10 @@ public class CustomerPayment {
     }
 
     public CustomerPayment withPayment(final Payment payment) {
-        return new CustomerPayment(id, refId, name, email, payment);
+        return new CustomerPayment(id, refId, name, email, membershipPlan, payment);
+    }
+
+    public Optional<MembershipPayment.MembershipPlan> currentMembershipPlan() {
+        return Optional.ofNullable(membershipPlan);
     }
 }

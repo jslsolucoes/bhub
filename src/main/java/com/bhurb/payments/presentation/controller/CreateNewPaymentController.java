@@ -58,6 +58,7 @@ public class CreateNewPaymentController {
     public record PaymentRequest(@NotNull Long customerId,
                                  @NotNull String customerEmail,
                                  @NotBlank String customerName,
+                                 MembershipPlan customerCurrentMembershipPlan,
                                  @NotNull Long sellerId,
                                  @NotNull String sellerName,
                                  @NotNull LocalDateTime createdAt,
@@ -101,6 +102,7 @@ public class CreateNewPaymentController {
                     customerId,
                     customerName,
                     new Email(customerEmail),
+                    customerCurrentMembershipPlan,
                     null
             );
             var seller = new SellerPayment(

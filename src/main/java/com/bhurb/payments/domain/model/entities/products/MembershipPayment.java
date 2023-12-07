@@ -35,12 +35,17 @@ public class MembershipPayment extends ProductPayment {
 
     @Override
     public boolean isNewMembership() {
-        return id == null;
+        return payment.customer()
+                .currentMembershipPlan()
+                .isEmpty();
     }
 
     @Override
-    public boolean isMembershipUpgrade(final MembershipPlan newPlan) {
-        return id != null && type.level() < newPlan.level();
+    public boolean isMembershipUpgrade() {
+        return payment.customer()
+                .currentMembershipPlan()
+                .filter(currentMembershipPlan -> currentMembershipPlan.level() < type.level())
+                .isPresent();
     }
 
     @Override
@@ -53,6 +58,10 @@ public class MembershipPayment extends ProductPayment {
         return "MembershipPayment{" +
                 "type=" + type +
                 '}';
+    }
+
+    public MembershipPlan membershipPlan() {
+        return type;
     }
 
     public enum MembershipPlan {

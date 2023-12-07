@@ -30,4 +30,12 @@ public abstract class ProductPayment implements PaymentSpec {
     }
 
     public abstract ProductPayment withPayment(final Payment payment);
+
+
+    public MembershipPayment asMembershipPayment() {
+        if (this instanceof MembershipPayment membershipPayment) {
+            return membershipPayment;
+        }
+        throw new IllegalStateException("This product payment is not a membership payment");
+    }
 }
