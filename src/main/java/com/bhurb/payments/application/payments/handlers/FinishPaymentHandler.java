@@ -26,7 +26,7 @@ public class FinishPaymentHandler implements PaymentHandler {
     public void doNext(final PaymentHandlerContext paymentHandlerContext,
                        final PaymentHandlerChain paymentHandlerChain) {
         var payment = paymentHandlerContext.payment();
-        LOGGER.info("Finishing payment {}", payment);
+        LOGGER.info("Finishing payment ...{}", payment);
         paymentRepository.save(payment);
         paymentHandlerChain.next();
     }

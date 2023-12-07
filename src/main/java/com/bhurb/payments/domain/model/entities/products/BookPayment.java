@@ -3,14 +3,19 @@ package com.bhurb.payments.domain.model.entities.products;
 import com.bhurb.payments.domain.model.entities.payments.Payment;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class BookPayment extends ProductPayment {
 
     @NotNull
+    private final Long refId;
+
+    @NotBlank
     private final String name;
 
+    @NotBlank
     private final String author;
 
     @Enumerated(jakarta.persistence.EnumType.STRING)
@@ -18,15 +23,17 @@ public class BookPayment extends ProductPayment {
 
     @Deprecated
     public BookPayment() {
-        this(null, null, null, null, null);
+        this(null, null, null, null, null, null);
     }
 
     public BookPayment(final Long id,
+                       final Long refId,
                        final String name,
                        final String author,
                        final BookType type,
                        final Payment payment) {
         super(id, payment);
+        this.refId = refId;
         this.name = name;
         this.author = author;
         this.type = type;
@@ -34,7 +41,7 @@ public class BookPayment extends ProductPayment {
 
     @Override
     public BookPayment withPayment(final Payment payment) {
-        return new BookPayment(id, name, author, type, payment);
+        return new BookPayment(id, refId, name, author, type, payment);
     }
 
     @Override

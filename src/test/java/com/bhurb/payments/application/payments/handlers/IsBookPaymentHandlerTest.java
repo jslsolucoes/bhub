@@ -20,7 +20,7 @@ class IsBookPaymentHandlerTest extends AbstractIntegrationTest {
     @Test
     void shouldDetectIsBook() {
         var payment = PaymentBuilder.create()
-                .withBook("The Lord of the Rings","J. R. R. Tolkien", BookPayment.BookType.DIGITAL)
+                .withBook(1L, "The Lord of the Rings", "J. R. R. Tolkien", BookPayment.BookType.DIGITAL)
                 .build();
         var paymentHandlerContext = new PaymentHandlerContext(payment);
         isBookPaymentHandler.doNext(paymentHandlerContext, paymentHandlerChain);

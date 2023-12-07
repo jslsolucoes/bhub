@@ -7,25 +7,29 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 public class VideoPayment extends ProductPayment {
 
+    @NotNull
+    private final Long refId;
 
     @NotNull
     protected final String name;
 
     @Deprecated
     public VideoPayment() {
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
     public VideoPayment(final Long id,
+                        final Long refId,
                         final String name,
                         final Payment payment) {
         super(id, payment);
         this.name = name;
+        this.refId = refId;
     }
 
     @Override
     public VideoPayment withPayment(final Payment payment) {
-        return new VideoPayment(id, name, payment);
+        return new VideoPayment(id, refId, name, payment);
     }
 
     @Override

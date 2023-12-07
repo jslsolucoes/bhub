@@ -1,6 +1,6 @@
 package com.bhurb.payments.domain.model.entities.payments;
 
-import com.bhurb.payments.domain.model.entities.customers.Customer;
+import com.bhurb.payments.domain.model.entities.customers.CustomerPayment;
 import com.bhurb.payments.domain.model.entities.products.ProductPayment;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -15,8 +15,9 @@ public class Payment {
     @Id
     @GeneratedValue
     private final Long id;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private final Customer customer;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,
+            mappedBy = "payment", fetch = FetchType.LAZY, optional = false)
+    private final CustomerPayment customerPayment;
 
     @NotNull
     private final LocalDateTime createdAt;
@@ -28,8 +29,9 @@ public class Payment {
             mappedBy = "payment", fetch = FetchType.LAZY, optional = false)
     private final ProductPayment product;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private final Seller seller;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,
+            mappedBy = "payment", fetch = FetchType.LAZY, optional = false)
+    private final SellerPayment sellerPayment;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,
             mappedBy = "payment", fetch = FetchType.LAZY, optional = false)
@@ -43,18 +45,23 @@ public class Payment {
 
     public Payment(final Long id,
                    final LocalDateTime createdAt,
-                   final Customer customer,
+                   final CustomerPayment customerPayment,
                    final BigDecimal amount,
                    final ProductPayment product,
-                   final Seller seller) {
+                   final SellerPayment sellerPayment) {
+
         this.id = id;
         this.createdAt = createdAt;
-        this.customer = customer;
         this.amount = amount;
+        this.customerPayment = Optional.ofNullable(customerPayment)
+                .map(cpy -> cpy.withPayment(this))
+                .orElse(null);
         this.product = Optional.ofNullable(product)
                 .map(pdr -> pdr.withPayment(this))
                 .orElse(null);
-        this.seller = seller;
+        this.sellerPayment = Optional.ofNullable(sellerPayment)
+                .map(sll -> sll.withPayment(this))
+                .orElse(null);
     }
 
     public void addComission(final Comission comission) {
@@ -69,8 +76,8 @@ public class Payment {
         return createdAt;
     }
 
-    public Customer customer() {
-        return customer;
+    public CustomerPayment customer() {
+        return customerPayment;
     }
 
     public BigDecimal amount() {
@@ -81,15 +88,15 @@ public class Payment {
         return product;
     }
 
-    public Seller seller() {
-        return seller;
+    public SellerPayment seller() {
+        return sellerPayment;
     }
 
     @Override
     public String toString() {
         return "Payment{" +
                 "id=" + id +
-                ", customer=" + customer +
+                ", customer=" + customerPayment +
                 ", createdAt=" + createdAt +
                 ", amount=" + amount +
                 ", product=" + product +

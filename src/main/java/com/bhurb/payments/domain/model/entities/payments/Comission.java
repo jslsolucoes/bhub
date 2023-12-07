@@ -1,6 +1,7 @@
 package com.bhurb.payments.domain.model.entities.payments;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Comission {
@@ -10,9 +11,10 @@ public class Comission {
     private final Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private final Seller seller;
+    private final SellerPayment sellerPayment;
 
     @OneToOne
+    @NotNull
     private final Payment payment;
 
     @Deprecated
@@ -21,10 +23,10 @@ public class Comission {
     }
 
     public Comission(final Long id,
-                     final Seller seller,
+                     final SellerPayment sellerPayment,
                      final Payment payment) {
         this.id = id;
-        this.seller = seller;
+        this.sellerPayment = sellerPayment;
         this.payment = payment;
     }
 
@@ -32,7 +34,7 @@ public class Comission {
         return id;
     }
 
-    public Seller seller() {
-        return seller;
+    public SellerPayment seller() {
+        return sellerPayment;
     }
 }

@@ -29,10 +29,11 @@ public class PaymentBuilder {
         );
     }
 
-    public PaymentBuilder withBook(final String name,
+    public PaymentBuilder withBook(final Long id,
+                                   final String name,
                                    final String author,
                                    final BookPayment.BookType bookType) {
-        this.productPayment = new BookPayment(null, name, author, bookType, null);
+        this.productPayment = new BookPayment(null, id, name, author, bookType, null);
         return this;
     }
 }

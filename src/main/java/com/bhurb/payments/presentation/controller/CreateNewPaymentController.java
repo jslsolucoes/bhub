@@ -1,9 +1,9 @@
 package com.bhurb.payments.presentation.controller;
 
 import com.bhurb.payments.application.payments.PaymentProcessor;
-import com.bhurb.payments.domain.model.entities.customers.Customer;
+import com.bhurb.payments.domain.model.entities.customers.CustomerPayment;
 import com.bhurb.payments.domain.model.entities.payments.Payment;
-import com.bhurb.payments.domain.model.entities.payments.Seller;
+import com.bhurb.payments.domain.model.entities.payments.SellerPayment;
 import com.bhurb.payments.domain.model.entities.products.BookPayment;
 import com.bhurb.payments.domain.model.entities.products.MembershipPayment;
 import com.bhurb.payments.domain.model.entities.products.MembershipPayment.MembershipPlan;
@@ -71,6 +71,7 @@ public class CreateNewPaymentController {
                 case Book book -> {
                     yield new BookPayment(
                             null,
+                            book.id(),
                             book.name(),
                             book.author(),
                             book.bookType(),
@@ -80,6 +81,7 @@ public class CreateNewPaymentController {
                 case Membership membership -> {
                     yield new MembershipPayment(
                             null,
+                            membership.id(),
                             membership.membershipPlan(),
                             null
                     );
@@ -87,20 +89,25 @@ public class CreateNewPaymentController {
                 case Video video -> {
                     yield new VideoPayment(
                             null,
+                            video.id(),
                             video.name(),
                             null
                     );
                 }
                 default -> throw new IllegalArgumentException("Invalid payload type");
             };
-            var customer = new Customer(
+            var customer = new CustomerPayment(
                     null,
+                    customerId,
                     customerName,
-                    new Email(customerEmail)
+                    new Email(customerEmail),
+                    null
             );
-            var seller = new Seller(
+            var seller = new SellerPayment(
                     null,
-                    sellerName
+                    sellerId,
+                    sellerName,
+                    null
             );
             return new Payment(
                     null,

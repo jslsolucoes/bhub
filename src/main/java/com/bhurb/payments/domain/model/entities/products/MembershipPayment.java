@@ -13,19 +13,24 @@ public class MembershipPayment extends ProductPayment {
 
 
     @NotNull
+    private final Long refId;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     private final MembershipPayment.MembershipPlan type;
 
     @Deprecated
     public MembershipPayment() {
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
     public MembershipPayment(final Long id,
+                             final Long refId,
                              final MembershipPlan type,
                              final Payment payment) {
         super(id, payment);
         this.type = type;
+        this.refId = refId;
     }
 
     @Override
@@ -40,7 +45,7 @@ public class MembershipPayment extends ProductPayment {
 
     @Override
     public MembershipPayment withPayment(Payment payment) {
-        return new MembershipPayment(id, type, payment);
+        return new MembershipPayment(id, refId, type, payment);
     }
 
     @Override
