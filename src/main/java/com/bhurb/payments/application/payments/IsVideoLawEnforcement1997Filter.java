@@ -20,8 +20,4 @@ public class IsVideoLawEnforcement1997Filter implements Filter {
         }
     }
 
-    @Override
-    public int priority() {
-        return 1;
-    }
 }

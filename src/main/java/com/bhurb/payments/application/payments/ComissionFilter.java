@@ -28,8 +28,4 @@ public class ComissionFilter implements Filter {
         filterChain.next();
     }
 
-    @Override
-    public int priority() {
-        return 1;
-    }
 }

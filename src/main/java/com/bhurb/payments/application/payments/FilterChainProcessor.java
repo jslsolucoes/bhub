@@ -1,27 +1,33 @@
 package com.bhurb.payments.application.payments;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 class FilterChainProcessor {
 
-    private final List<Filter> filters;
+    private final Map<Class<? extends Filter>, Filter> filters;
 
     public FilterChainProcessor() {
-        this.filters = new ArrayList<>();
+        this.filters = new HashMap<>();
     }
 
     public void register(final Filter filter) {
-        this.filters.add(filter);
+        this.filters.put(filter.getClass(), filter);
     }
 
     public void next(final FilterContext filterContext) {
-        var filtersWithPriority = this.filters
-                .stream().sorted(Comparator.comparing(Filter::priority))
+        var filterClasses = this.filters
+                .keySet()
+                .toArray(Class<?>[]::new);
+        var topologicalSortFilters = new TopologicalSortFilters();
+        topologicalSortFilters.register(filterClasses);
+        var filtersWithPriority = topologicalSortFilters.all();
+        var newFilters = filtersWithPriority
+                .stream()
+                .map(this.filters::get)
                 .toList();
-        var filterChain = new DefaultFilterChain(filtersWithPriority, filterContext);
-        filterChain.next();
+        var defaultFilterChain = new DefaultFilterChain(newFilters, filterContext);
+        defaultFilterChain.next();
     }
 
 }

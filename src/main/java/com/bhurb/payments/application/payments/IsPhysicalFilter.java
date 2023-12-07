@@ -19,8 +19,4 @@ public class IsPhysicalFilter implements Filter {
         filterChain.next();
     }
 
-    @Override
-    public int priority() {
-        return 0;
-    }
 }

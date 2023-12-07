@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
+@FilterPriority(after = {LogFilter.class})
 public class IsBookFilter implements Filter {
 
     private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(IsBookFilter.class);
@@ -20,8 +21,4 @@ public class IsBookFilter implements Filter {
         filterChain.next();
     }
 
-    @Override
-    public int priority() {
-        return 0;
-    }
 }
