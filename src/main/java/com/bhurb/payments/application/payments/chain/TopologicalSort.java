@@ -14,11 +14,11 @@ import static com.google.common.collect.Sets.newHashSet;
 
 
 /**
- * Topological sort of filters.
+ * Topological sort of paymentHandlers.
  * See reference for how topological sort works <a href="https://en.wikipedia.org/wiki/Topological_sorting">...</a>
  */
 
-public class TopologicalSortFilters {
+public class TopologicalSort {
 
     private final Graph<Class<?>> set = new Graph<>();
 
@@ -26,24 +26,24 @@ public class TopologicalSortFilters {
         return set.topologicalOrder();
     }
 
-    public void register(Class<?>... filters) {
-        for (Class<?> filter : filters) {
-            FilterPriority filterPriority = filter.getAnnotation(FilterPriority.class);
-            if (filterPriority != null) {
-                addEdges(filter, filterPriority.before(), filterPriority.after());
+    public void register(Class<?>... paymentHandlers) {
+        for (Class<?> paymentHandler : paymentHandlers) {
+            PaymentHandlerPriority paymentHandlerPriority = paymentHandler.getAnnotation(PaymentHandlerPriority.class);
+            if (paymentHandlerPriority != null) {
+                addEdges(paymentHandler, paymentHandlerPriority.before(), paymentHandlerPriority.after());
             } else {
-                addEdges(filter, new Class[0], new Class[0]);
+                addEdges(paymentHandler, new Class[0], new Class[0]);
             }
         }
     }
 
-    private void addEdges(final Class<?> filter,
+    private void addEdges(final Class<?> paymentHandler,
                           final Class<?>[] before,
                           final Class<?>[] after) {
-        set.addEdges(filter, before);
+        set.addEdges(paymentHandler, before);
 
         for (Class<?> other : after) {
-            set.addEdge(other, filter);
+            set.addEdge(other, paymentHandler);
         }
     }
 
@@ -90,7 +90,7 @@ public class TopologicalSortFilters {
                 Set<E> roots = findRoots();
 
                 if (roots.isEmpty()) {
-                    throw new IllegalStateException("There is a cycle on the filter sequence: \n" + cycle());
+                    throw new IllegalStateException("There is a cycle on the payment handler sequence: \n" + cycle());
                 }
 
                 list.addAll(roots);

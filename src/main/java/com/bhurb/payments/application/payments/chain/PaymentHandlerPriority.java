@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface FilterPriority {
+public @interface PaymentHandlerPriority {
     Class<?>[] before() default {};
     Class<?>[] after() default {};
 }

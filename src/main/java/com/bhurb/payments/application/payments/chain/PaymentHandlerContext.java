@@ -5,7 +5,7 @@ package com.bhurb.payments.application.payments.chain;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FilterContext {
+public class PaymentHandlerContext {
 
     private final Map<String, Object> params = new HashMap<>();
 

@@ -1,9 +1,9 @@
 package com.bhurb.payments.application.payments;
 
 
-import com.bhurb.payments.application.payments.chain.Filter;
-import com.bhurb.payments.application.payments.chain.FilterChainProcessor;
-import com.bhurb.payments.application.payments.chain.FilterContext;
+import com.bhurb.payments.application.payments.chain.PaymentHandler;
+import com.bhurb.payments.application.payments.chain.PaymentHandlerChainProcessor;
+import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
 import com.bhurb.payments.domain.model.entities.payments.specs.PaymentSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,19 +15,19 @@ import java.util.List;
 @Component
 public class PaymentProcessor {
 
-    private final List<Filter> filters;
+    private final List<PaymentHandler> paymentHandlers;
 
     @Autowired
-    public PaymentProcessor(final List<Filter> filters) {
-        this.filters = filters;
+    public PaymentProcessor(final List<PaymentHandler> paymentHandlers) {
+        this.paymentHandlers = paymentHandlers;
     }
 
     public PaymentProcessorOutput process(final PaymentProcessorInput paymentProcessorInput) {
-        var filterChainProcessor = new FilterChainProcessor();
-        filters.forEach(filterChainProcessor::register);
-        var filterContext = new FilterContext();
-        filterContext.put("paymentSpec", paymentProcessorInput.paymentSpec());
-        filterChainProcessor.next(filterContext);
+        var paymentHandlerChainProcessor = new PaymentHandlerChainProcessor();
+        paymentHandlers.forEach(paymentHandlerChainProcessor::register);
+        var paymentHandlerContext = new PaymentHandlerContext();
+        paymentHandlerContext.put("paymentSpec", paymentProcessorInput.paymentSpec());
+        paymentHandlerChainProcessor.next(paymentHandlerContext);
         return new PaymentProcessorOutput(1L);
     }
 

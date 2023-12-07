@@ -1,5 +1,5 @@
 package com.bhurb.payments.application.payments.chain;
 
-public interface FilterChain {
+public interface PaymentHandlerChain {
     void next();
 }
