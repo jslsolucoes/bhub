@@ -1,4 +1,4 @@
-# Breakify React + Java Challenge
+# Bhub challenge
 
 ## Prerequisites
 To run and build this project, the following dependencies must be installed in your machine:
@@ -11,7 +11,7 @@ To run and build this project, the following dependencies must be installed in y
 
 ## Running breakify challenge
 
-```docker run -p 8081:8081 jslsolucoes/react-challenge:0.0.1```
+```docker run -p 8081:8081 jslsolucoes/bhub:0.0.1```
 
 When container its running, open your browser and access the url:
 
@@ -23,8 +23,8 @@ When container its running, open your browser and access the url:
 To build project:
 
 ```
-git clone https://github.com/jslsolucoes/react-challenge.git
-cd react-challenge
+git clone https://github.com/jslsolucoes/bhub.git
+cd bhub
 mvn clean install docker:build
 ```
 
@@ -32,6 +32,6 @@ Build will do most of steps like:
 
     - Build React project (including install and running lint and tests)
     - Build Java project embedded with React project (including tests)
-    - Build Docker image with prefix jslsolucoes/react-challenge:xxx
+    - Build Docker image with prefix jslsolucoes/bhub:xxx
 
 
