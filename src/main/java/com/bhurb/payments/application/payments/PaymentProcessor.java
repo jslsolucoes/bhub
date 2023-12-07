@@ -12,18 +12,21 @@ import java.util.List;
 @Component
 public class PaymentProcessor {
 
+    private final List<Filter> filters;
 
     @Autowired
-    public PaymentProcessor(List<PaymentSpec> specs) {
-
+    public PaymentProcessor(final List<Filter> filters) {
+        this.filters = filters;
     }
 
     public PaymentProcessorOutput process(final PaymentProcessorInput paymentProcessorInput) {
-
-
+        var filterChainProcessor = new FilterChainProcessor();
+        filters.forEach(filterChainProcessor::register);
+        var filterContext = new FilterContext();
+        filterContext.put("paymentSpec", paymentProcessorInput.paymentSpec());
+        filterChainProcessor.next(filterContext);
         return new PaymentProcessorOutput(1L);
     }
-
 
     public record PaymentProcessorInput(LocalDateTime createdAt,
                                         Long customerId,

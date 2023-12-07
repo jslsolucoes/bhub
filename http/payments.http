@@ -4,8 +4,15 @@ Content-Type: application/json
 {
   "productId": 1,
   "createdAt": "2020-01-01T00:00:00Z",
+  "amount": 1000.00,
+  "customerId": 1,
+  "customerName": "John Doe",
+  "customerEmail": "jon@jon.com",
   "payload": {
     "type": "book",
-    "id": 1
+    "id": 1,
+    "name": "The Lord of the Rings",
+    "author": "J. R. R. Tolkien",
+    "bookType": "BOTH"
   }
 }

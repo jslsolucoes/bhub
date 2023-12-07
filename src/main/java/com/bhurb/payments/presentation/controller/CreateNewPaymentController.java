@@ -103,7 +103,7 @@ public class CreateNewPaymentController {
 
         record Book(@NotNull @JsonProperty("id") Long id,
                     @NotBlank @JsonProperty("name") String name,
-                    @NotBlank @JsonProperty("name") String author,
+                    @NotBlank @JsonProperty("author") String author,
                     @NotNull com.bhurb.payments.domain.model.entities.products.Book.BookType bookType) implements Payload {
 
         }
