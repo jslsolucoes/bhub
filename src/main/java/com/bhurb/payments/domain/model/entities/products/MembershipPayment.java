@@ -1,22 +1,32 @@
 package com.bhurb.payments.domain.model.entities.products;
 
 
-import com.bhurb.payments.domain.model.entities.payments.specs.PaymentSpec;
-import jakarta.persistence.*;
+import com.bhurb.payments.domain.model.entities.payments.Payment;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 
 
 @Entity
-public class Membership implements PaymentSpec {
+public class MembershipPayment extends ProductPayment {
 
-    @Id
-    @NotNull
-    @GeneratedValue
-    private final Long id;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private final Membership.MembershipPlan type;
+    private final MembershipPayment.MembershipPlan type;
+
+    @Deprecated
+    public MembershipPayment() {
+        this(null, null, null);
+    }
+
+    public MembershipPayment(final Long id,
+                             final MembershipPlan type,
+                             final Payment payment) {
+        super(id, payment);
+        this.type = type;
+    }
 
     @Override
     public boolean isNewMembership() {
@@ -28,15 +38,16 @@ public class Membership implements PaymentSpec {
         return id != null && type.level() < newPlan.level();
     }
 
-    @Deprecated
-    public Membership() {
-        this(null, null);
+    @Override
+    public MembershipPayment withPayment(Payment payment) {
+        return new MembershipPayment(id, type, payment);
     }
 
-    public Membership(final Long id,
-                      final MembershipPlan type) {
-        this.id = id;
-        this.type = type;
+    @Override
+    public String toString() {
+        return "MembershipPayment{" +
+                "type=" + type +
+                '}';
     }
 
     public enum MembershipPlan {

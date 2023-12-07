@@ -1,7 +1,7 @@
 package com.bhurb.payments.infra.events;
 
 import com.bhurb.payments.domain.events.EventDispatcher;
-import com.bhurb.payments.domain.events.MailCreatedEvent;
+import com.bhurb.payments.domain.events.MailScheduledEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class SpringEventDispatcher implements EventDispatcher {
     }
 
     @Override
-    public void sendMail(String to, String subject, String body) {
-        this.applicationContext.publishEvent(new MailCreatedEvent(to, subject, body));
+    public void scheduleMail(String to, String subject, String body) {
+        this.applicationContext.publishEvent(new MailScheduledEvent(to, subject, body));
     }
 }

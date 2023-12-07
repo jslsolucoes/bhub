@@ -50,9 +50,8 @@ public class TopologicalSort {
     static class Graph<E> {
 
         private final Multimap<E, E> graph = LinkedHashMultimap.create();
-        private List<E> orderedList;
-
         private final Lock lock = new ReentrantLock();
+        private List<E> orderedList;
 
         public void addEdge(E from, E to) {
             graph.put(from, to);

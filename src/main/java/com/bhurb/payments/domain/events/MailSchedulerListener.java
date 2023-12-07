@@ -6,18 +6,18 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MailNotificationListener {
+public class MailSchedulerListener {
 
     private final MailNotification mailNotification;
 
     @Autowired
-    public MailNotificationListener(final MailNotification mailNotification) {
+    public MailSchedulerListener(final MailNotification mailNotification) {
         this.mailNotification = mailNotification;
     }
 
     @EventListener
-    public void on(final MailCreatedEvent mailCreatedEvent) {
-        var eventDetails = mailCreatedEvent.source();
+    public void on(final MailScheduledEvent mailScheduledEvent) {
+        var eventDetails = mailScheduledEvent.source();
         var to = eventDetails.to();
         var subject = eventDetails.subject();
         var body = eventDetails.body();

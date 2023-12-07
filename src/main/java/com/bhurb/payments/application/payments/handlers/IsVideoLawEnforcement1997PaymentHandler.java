@@ -3,11 +3,13 @@ package com.bhurb.payments.application.payments.handlers;
 import com.bhurb.payments.application.payments.chain.PaymentHandler;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerChain;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
+import com.bhurb.payments.application.payments.chain.PaymentHandlerPriority;
 import com.bhurb.payments.domain.model.entities.payments.specs.IsVideoLawEnforcement1997Spec;
-import com.bhurb.payments.domain.model.entities.payments.specs.PaymentSpec;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
+
+@PaymentHandlerPriority(after = {IsPhysicalPaymentHandler.class})
 @Component
 public class IsVideoLawEnforcement1997PaymentHandler implements PaymentHandler {
 
@@ -16,11 +18,13 @@ public class IsVideoLawEnforcement1997PaymentHandler implements PaymentHandler {
     @Override
     public void doNext(final PaymentHandlerContext paymentHandlerContext,
                        final PaymentHandlerChain paymentHandlerChain) {
-        var paymentSpec = (PaymentSpec) paymentHandlerContext.get("paymentSpec");
+        var payment = paymentHandlerContext.payment();
+        var product = payment.product();
         var isVideoLawEnforcement1997Spec = new IsVideoLawEnforcement1997Spec();
-        if (isVideoLawEnforcement1997Spec.isSatisfiedBy(paymentSpec)) {
-            LOGGER.info("isVideoLawEnforcement1997 = true add Primeiros Socorros");
+        if (isVideoLawEnforcement1997Spec.isSatisfiedBy(product)) {
+            LOGGER.debug("isVideoLawEnforcement1997 = true add Primeiros Socorros");
         }
+        paymentHandlerChain.next();
     }
 
 }

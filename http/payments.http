@@ -8,6 +8,8 @@ Content-Type: application/json
   "customerId": 1,
   "customerName": "John Doe",
   "customerEmail": "jon@jon.com",
+  "sellerId": 1,
+  "sellerName": "Jane Doe",
   "payload": {
     "type": "book",
     "id": 1,

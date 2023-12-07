@@ -13,8 +13,10 @@ public class LogPaymentHandler implements PaymentHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(LogPaymentHandler.class);
 
     @Override
-    public void doNext(final PaymentHandlerContext paymentHandlerContext, final PaymentHandlerChain paymentHandlerChain) {
-        LOGGER.info("Log payment handler");
+    public void doNext(final PaymentHandlerContext paymentHandlerContext,
+                       final PaymentHandlerChain paymentHandlerChain) {
+        var payment = paymentHandlerContext.payment();
+        LOGGER.debug("Start processing payment {}", payment);
         paymentHandlerChain.next();
     }
 

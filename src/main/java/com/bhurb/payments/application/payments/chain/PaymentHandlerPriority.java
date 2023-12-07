@@ -7,5 +7,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 public @interface PaymentHandlerPriority {
     Class<?>[] before() default {};
+
     Class<?>[] after() default {};
 }

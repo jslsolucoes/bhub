@@ -1,6 +1,6 @@
 package com.bhurb.payments.domain.model.entities.payments.specs;
 
-import com.bhurb.payments.domain.model.entities.products.Membership.MembershipPlan;
+import com.bhurb.payments.domain.model.entities.products.MembershipPayment.MembershipPlan;
 
 public class IsMembershipUpgradeSpec implements Spec {
     private final MembershipPlan newPlan;

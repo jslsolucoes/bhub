@@ -27,7 +27,7 @@ class PaymentHandlerChainProcessorTest extends AbstractTest {
         paymentHandlerChainProcessor.register(paymentHandlerWithNoPriority0);
         paymentHandlerChainProcessor.register(paymentHandlerWithNoPriority1);
 
-        var paymentHandlerContext = new PaymentHandlerContext();
+        var paymentHandlerContext = new PaymentHandlerContext(null);
         paymentHandlerChainProcessor.next(paymentHandlerContext);
 
         var expecteds = List.of(
@@ -62,7 +62,7 @@ class PaymentHandlerChainProcessorTest extends AbstractTest {
         paymentHandlerChainProcessor.register(paymentHandlerWithPriority0);
         paymentHandlerChainProcessor.register(paymentHandlerWithPriorityBetween0And1);
 
-        var paymentHandlerContext = new PaymentHandlerContext();
+        var paymentHandlerContext = new PaymentHandlerContext(null);
         paymentHandlerChainProcessor.next(paymentHandlerContext);
 
         var expected = List.of(paymentHandlerWithPriority0, paymentHandlerWithPriorityBetween0And1, paymentHandlerWithPriority1);
@@ -85,7 +85,7 @@ class PaymentHandlerChainProcessorTest extends AbstractTest {
         paymentHandlerChainProcessor.register(paymentHandlerWithPriority0);
         paymentHandlerChainProcessor.register(paymentHandlerWithPriority1);
 
-        var paymentHandlerContext = new PaymentHandlerContext();
+        var paymentHandlerContext = new PaymentHandlerContext(null);
         paymentHandlerChainProcessor.next(paymentHandlerContext);
 
         var expected = List.of(paymentHandlerWithPriority0);
@@ -109,7 +109,7 @@ class PaymentHandlerChainProcessorTest extends AbstractTest {
         paymentHandlerChainProcessor.register(paymentHandlerWithPriority0);
         paymentHandlerChainProcessor.register(paymentHandlerWithPriority1);
 
-        var paymentHandlerContext = new PaymentHandlerContext();
+        var paymentHandlerContext = new PaymentHandlerContext(null);
         paymentHandlerChainProcessor.next(paymentHandlerContext);
 
     }

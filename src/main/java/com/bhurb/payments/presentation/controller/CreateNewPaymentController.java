@@ -1,8 +1,14 @@
 package com.bhurb.payments.presentation.controller;
 
 import com.bhurb.payments.application.payments.PaymentProcessor;
-import com.bhurb.payments.domain.model.entities.payments.specs.PaymentSpec;
-import com.bhurb.payments.domain.model.entities.products.Membership.MembershipPlan;
+import com.bhurb.payments.domain.model.entities.customers.Customer;
+import com.bhurb.payments.domain.model.entities.payments.Payment;
+import com.bhurb.payments.domain.model.entities.payments.Seller;
+import com.bhurb.payments.domain.model.entities.products.BookPayment;
+import com.bhurb.payments.domain.model.entities.products.MembershipPayment;
+import com.bhurb.payments.domain.model.entities.products.MembershipPayment.MembershipPlan;
+import com.bhurb.payments.domain.model.entities.products.VideoPayment;
+import com.bhurb.payments.domain.model.valueobject.Email;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -42,53 +48,67 @@ public class CreateNewPaymentController {
     })
     @PostMapping("/payments")
     public PaymentResponse createNewPayment(@RequestBody @Valid final PaymentRequest paymentRequest) {
-        var asPaymentProcessorInput = paymentRequest.asPaymentProcessorInput();
-        var paymentProcessorOutput = paymentProcessor.process(asPaymentProcessorInput);
+        var payment = paymentRequest.asPayment();
+        var paymentProcessorInput = new PaymentProcessor.PaymentProcessorInput(payment);
+        var paymentProcessorOutput = paymentProcessor.process(paymentProcessorInput);
         return new PaymentResponse(paymentProcessorOutput.paymentId());
     }
 
     @Schema(name = "PaymentRequest")
     public record PaymentRequest(@NotNull Long customerId,
                                  @NotNull String customerEmail,
+                                 @NotBlank String customerName,
+                                 @NotNull Long sellerId,
+                                 @NotNull String sellerName,
                                  @NotNull LocalDateTime createdAt,
                                  @NotNull BigDecimal amount,
                                  @Valid @NotNull Payload payload) {
 
 
-        public PaymentSpec asPaymentSpec() {
+        public Payment asPayment() {
 
-            switch (payload) {
+            var productPayment = switch (payload) {
                 case Book book -> {
-                    return new com.bhurb.payments.domain.model.entities.products.Book(
-                            book.id(),
+                    yield new BookPayment(
+                            null,
                             book.name(),
                             book.author(),
-                            book.bookType()
+                            book.bookType(),
+                            null
                     );
                 }
                 case Membership membership -> {
-                    return new com.bhurb.payments.domain.model.entities.products.Membership(
-                            membership.id(),
-                            membership.membershipPlan()
+                    yield new MembershipPayment(
+                            null,
+                            membership.membershipPlan(),
+                            null
                     );
                 }
                 case Video video -> {
-                    return new com.bhurb.payments.domain.model.entities.products.Video(
-                            video.id(),
-                            video.name()
+                    yield new VideoPayment(
+                            null,
+                            video.name(),
+                            null
                     );
                 }
                 default -> throw new IllegalArgumentException("Invalid payload type");
-            }
-        }
-
-        public PaymentProcessor.PaymentProcessorInput asPaymentProcessorInput() {
-            return new PaymentProcessor.PaymentProcessorInput(
+            };
+            var customer = new Customer(
+                    null,
+                    customerName,
+                    new Email(customerEmail)
+            );
+            var seller = new Seller(
+                    null,
+                    sellerName
+            );
+            return new Payment(
+                    null,
                     createdAt,
-                    customerId,
-                    customerEmail,
+                    customer,
                     amount,
-                    asPaymentSpec()
+                    productPayment,
+                    seller
             );
         }
 
@@ -104,7 +124,7 @@ public class CreateNewPaymentController {
         record Book(@NotNull @JsonProperty("id") Long id,
                     @NotBlank @JsonProperty("name") String name,
                     @NotBlank @JsonProperty("author") String author,
-                    @NotNull com.bhurb.payments.domain.model.entities.products.Book.BookType bookType) implements Payload {
+                    @NotNull BookPayment.BookType bookType) implements Payload {
 
         }
 

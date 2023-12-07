@@ -20,7 +20,7 @@ public class Email {
 
     @Deprecated
     public Email() {
-        this(null);
+        this.address = null;
     }
 
     public String address() {
@@ -38,5 +38,12 @@ public class Email {
     @Override
     public int hashCode() {
         return address.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Email{" +
+                "address='" + address + '\'' +
+                '}';
     }
 }

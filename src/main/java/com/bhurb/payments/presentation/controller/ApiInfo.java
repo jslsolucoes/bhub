@@ -11,6 +11,7 @@ public class ApiInfo {
 
         public static final String OK = "200";
         public static final String BAD_REQUEST = "400";
+
         private StatusCode() {
         }
     }
@@ -19,6 +20,7 @@ public class ApiInfo {
 
         public static final String PUBLIC = "Api Public";
         public static final String PAYMENTS = "Payments";
+
         private Tags() {
         }
     }

@@ -13,16 +13,22 @@ public class Customer {
     @GeneratedValue
     private final Long id;
 
+    private final String name;
+
     @Embedded
     private final Email email;
 
-    public Customer(final Long id, final Email email) {
-        this.id = id;
-        this.email = email;
+    @Deprecated
+    public Customer() {
+        this(null, null, null);
     }
 
-    public Customer() {
-        this(null, null);
+    public Customer(final Long id,
+                    final String name,
+                    final Email email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
     }
 
     public Long id() {
@@ -33,4 +39,12 @@ public class Customer {
         return email;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email=" + email +
+                '}';
+    }
 }
