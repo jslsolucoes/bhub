@@ -2,8 +2,8 @@ package com.bhurb.payments.application.payments.handlers;
 
 import com.bhurb.payments.application.payments.chain.PaymentHandlerChain;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
-import com.bhurb.payments.domain.model.entities.payments.PaymentBuilder;
-import com.bhurb.payments.domain.model.entities.products.BookPayment;
+import com.bhurb.payments.domain.model.entities.PaymentBuilder;
+import com.bhurb.payments.domain.model.entities.BookPayment;
 import com.bhurb.payments.junit.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

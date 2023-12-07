@@ -1,4 +1,4 @@
-package com.bhurb.payments.domain.model.entities.payments.specs;
+package com.bhurb.payments.domain.model.entities.specs;
 
 import java.util.stream.Stream;
 

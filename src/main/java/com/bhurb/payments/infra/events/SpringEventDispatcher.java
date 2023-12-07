@@ -1,10 +1,7 @@
 package com.bhurb.payments.infra.events;
 
-import com.bhurb.payments.domain.events.EventDispatcher;
-import com.bhurb.payments.domain.events.NewMailEvent;
-import com.bhurb.payments.domain.events.NewMembershipEvent;
-import com.bhurb.payments.domain.events.UpgradeMembershipEvent;
-import com.bhurb.payments.domain.model.entities.products.MembershipPayment;
+import com.bhurb.payments.domain.events.*;
+import com.bhurb.payments.domain.model.entities.MembershipPayment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -36,6 +33,12 @@ public class SpringEventDispatcher implements EventDispatcher {
     public void upgradeMembership(final Long customerId,
                                   final MembershipPayment.MembershipPlan membershipPlan) {
         this.applicationContext.publishEvent(new UpgradeMembershipEvent(customerId, membershipPlan));
+    }
+
+    @Override
+    public void newBookRoyaltDeliveryDoc(final Long bookId,
+                                         final String author) {
+        this.applicationContext.publishEvent(new NewBookRoyaltDeliveryDocEvent(bookId, author));
     }
 
 }

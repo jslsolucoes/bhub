@@ -1,7 +1,5 @@
-package com.bhurb.payments.domain.model.entities.customers;
+package com.bhurb.payments.domain.model.entities;
 
-import com.bhurb.payments.domain.model.entities.payments.Payment;
-import com.bhurb.payments.domain.model.entities.products.MembershipPayment;
 import com.bhurb.payments.domain.model.valueobject.Email;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

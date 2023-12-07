@@ -1,10 +1,11 @@
-package com.bhurb.payments.domain.model.entities.products;
+package com.bhurb.payments.domain.model.entities;
 
-import com.bhurb.payments.domain.model.entities.payments.Payment;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.Optional;
 
 @Entity
 public class BookPayment extends ProductPayment {
@@ -42,6 +43,13 @@ public class BookPayment extends ProductPayment {
     @Override
     public BookPayment withPayment(final Payment payment) {
         return new BookPayment(id, refId, name, author, type, payment);
+    }
+
+    @Override
+    public Optional<DeliveryDocItem> asDeliveryDocItem() {
+        return Optional.of(
+                new DeliveryDocItem(null, refId, name, false, null)
+        );
     }
 
     @Override

@@ -4,7 +4,7 @@ package com.bhurb.payments.application.payments;
 import com.bhurb.payments.application.payments.chain.PaymentHandler;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerChainProcessor;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
-import com.bhurb.payments.domain.model.entities.payments.Payment;
+import com.bhurb.payments.domain.model.entities.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

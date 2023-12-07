@@ -4,7 +4,8 @@ import com.bhurb.payments.application.payments.chain.PaymentHandler;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerChain;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerPriority;
-import com.bhurb.payments.domain.model.entities.payments.specs.IsVideoLawEnforcement1997Spec;
+import com.bhurb.payments.domain.model.entities.DeliveryDocItem;
+import com.bhurb.payments.domain.model.entities.specs.IsVideoLawEnforcement1997Spec;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +23,28 @@ public class IsVideoLawEnforcement1997PaymentHandler implements PaymentHandler {
         var product = payment.product();
         var isVideoLawEnforcement1997Spec = new IsVideoLawEnforcement1997Spec();
         if (isVideoLawEnforcement1997Spec.isSatisfiedBy(product)) {
-            LOGGER.debug("add Primeiros Socorros video to delivery doc");
+            LOGGER.debug("Adding free video to delivery doc");
+            var aprendendoAEsquiar = FreeVideo.APRENDENDO_A_ESQUIAR
+                    .toDeliveryDocItem();
+            payment.addItemToDeliveryDoc(aprendendoAEsquiar);
         }
         paymentHandlerChain.next();
+    }
+
+    enum FreeVideo {
+        APRENDENDO_A_ESQUIAR(157L, "Aprendendo a Esquiar");
+
+        private final Long refId;
+        private final String name;
+
+        FreeVideo(final Long refId, final String name) {
+            this.refId = refId;
+            this.name = name;
+        }
+
+        public DeliveryDocItem toDeliveryDocItem() {
+            return new DeliveryDocItem(null, refId, name, true, null);
+        }
     }
 
 }

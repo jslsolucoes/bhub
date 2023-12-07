@@ -5,7 +5,7 @@ import com.bhurb.payments.application.payments.chain.PaymentHandlerChain;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerPriority;
 import com.bhurb.payments.domain.events.EventDispatcher;
-import com.bhurb.payments.domain.model.entities.payments.specs.IsMembershipUpgradeSpec;
+import com.bhurb.payments.domain.model.entities.specs.IsMembershipUpgradeSpec;
 import org.springframework.stereotype.Component;
 
 

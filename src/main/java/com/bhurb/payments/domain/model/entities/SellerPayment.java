@@ -1,4 +1,4 @@
-package com.bhurb.payments.domain.model.entities.payments;
+package com.bhurb.payments.domain.model.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,7 +1,5 @@
-package com.bhurb.payments.domain.model.entities.payments;
+package com.bhurb.payments.domain.model.entities;
 
-import com.bhurb.payments.domain.model.entities.customers.CustomerPayment;
-import com.bhurb.payments.domain.model.entities.products.ProductPayment;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -37,6 +35,10 @@ public class Payment {
             mappedBy = "payment", fetch = FetchType.LAZY, optional = false)
     private Comission commission;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,
+            mappedBy = "payment", fetch = FetchType.LAZY, optional = false)
+    private DeliveryDoc deliveryDoc;
+
     @Deprecated
     public Payment() {
         this(null, null, null,
@@ -66,6 +68,16 @@ public class Payment {
 
     public void addComission(final Comission comission) {
         this.commission = comission;
+    }
+
+    public Payment createNewDeliveryDoc() {
+        this.deliveryDoc = new DeliveryDoc(null, this);
+        return this;
+    }
+
+    public Payment addItemToDeliveryDoc(final DeliveryDocItem deliveryDocItem) {
+        this.deliveryDoc.addItem(deliveryDocItem);
+        return this;
     }
 
     public Long id() {

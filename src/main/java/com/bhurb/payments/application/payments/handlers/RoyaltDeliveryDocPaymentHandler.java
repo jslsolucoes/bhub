@@ -4,7 +4,7 @@ import com.bhurb.payments.application.payments.chain.PaymentHandler;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerChain;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerPriority;
-import com.bhurb.payments.domain.model.entities.payments.specs.IsBookSpec;
+import com.bhurb.payments.domain.model.entities.specs.IsBookSpec;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 

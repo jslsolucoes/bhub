@@ -1,6 +1,6 @@
 package com.bhurb.payments.domain.events;
 
-import com.bhurb.payments.domain.model.entities.products.MembershipPayment;
+import com.bhurb.payments.domain.model.entities.MembershipPayment;
 import org.springframework.context.ApplicationEvent;
 
 public class UpgradeMembershipEvent extends ApplicationEvent

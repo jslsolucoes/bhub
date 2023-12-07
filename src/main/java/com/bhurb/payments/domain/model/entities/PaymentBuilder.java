@@ -1,7 +1,4 @@
-package com.bhurb.payments.domain.model.entities.payments;
-
-import com.bhurb.payments.domain.model.entities.products.BookPayment;
-import com.bhurb.payments.domain.model.entities.products.ProductPayment;
+package com.bhurb.payments.domain.model.entities;
 
 import java.time.LocalDateTime;
 

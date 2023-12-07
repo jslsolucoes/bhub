@@ -1,13 +1,13 @@
 package com.bhurb.payments.presentation.controller;
 
 import com.bhurb.payments.application.payments.PaymentProcessor;
-import com.bhurb.payments.domain.model.entities.customers.CustomerPayment;
-import com.bhurb.payments.domain.model.entities.payments.Payment;
-import com.bhurb.payments.domain.model.entities.payments.SellerPayment;
-import com.bhurb.payments.domain.model.entities.products.BookPayment;
-import com.bhurb.payments.domain.model.entities.products.MembershipPayment;
-import com.bhurb.payments.domain.model.entities.products.MembershipPayment.MembershipPlan;
-import com.bhurb.payments.domain.model.entities.products.VideoPayment;
+import com.bhurb.payments.domain.model.entities.CustomerPayment;
+import com.bhurb.payments.domain.model.entities.Payment;
+import com.bhurb.payments.domain.model.entities.SellerPayment;
+import com.bhurb.payments.domain.model.entities.BookPayment;
+import com.bhurb.payments.domain.model.entities.MembershipPayment;
+import com.bhurb.payments.domain.model.entities.MembershipPayment.MembershipPlan;
+import com.bhurb.payments.domain.model.entities.VideoPayment;
 import com.bhurb.payments.domain.model.valueobject.Email;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

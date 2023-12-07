@@ -5,10 +5,10 @@ import com.bhurb.payments.application.payments.chain.PaymentHandler;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerChain;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerPriority;
-import com.bhurb.payments.domain.model.entities.payments.Comission;
-import com.bhurb.payments.domain.model.entities.payments.specs.IsBookSpec;
-import com.bhurb.payments.domain.model.entities.payments.specs.IsPhysicalSpec;
-import com.bhurb.payments.domain.model.entities.payments.specs.Spec;
+import com.bhurb.payments.domain.model.entities.Comission;
+import com.bhurb.payments.domain.model.entities.specs.IsBookSpec;
+import com.bhurb.payments.domain.model.entities.specs.IsPhysicalSpec;
+import com.bhurb.payments.domain.model.entities.specs.Spec;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 

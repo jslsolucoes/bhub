@@ -1,11 +1,12 @@
-package com.bhurb.payments.domain.model.entities.products;
+package com.bhurb.payments.domain.model.entities;
 
 
-import com.bhurb.payments.domain.model.entities.payments.Payment;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.Optional;
 
 
 @Entity
@@ -51,6 +52,11 @@ public class MembershipPayment extends ProductPayment {
     @Override
     public MembershipPayment withPayment(Payment payment) {
         return new MembershipPayment(id, refId, type, payment);
+    }
+
+    @Override
+    public Optional<DeliveryDocItem> asDeliveryDocItem() {
+        return Optional.empty();
     }
 
     @Override

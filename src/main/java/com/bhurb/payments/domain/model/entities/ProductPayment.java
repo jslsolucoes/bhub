@@ -1,10 +1,11 @@
-package com.bhurb.payments.domain.model.entities.products;
+package com.bhurb.payments.domain.model.entities;
 
 
-import com.bhurb.payments.domain.model.entities.payments.Payment;
-import com.bhurb.payments.domain.model.entities.payments.specs.PaymentSpec;
+import com.bhurb.payments.domain.model.entities.specs.PaymentSpec;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.Optional;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -38,4 +39,6 @@ public abstract class ProductPayment implements PaymentSpec {
         }
         throw new IllegalStateException("This product payment is not a membership payment");
     }
+
+    public abstract Optional<DeliveryDocItem> asDeliveryDocItem();
 }

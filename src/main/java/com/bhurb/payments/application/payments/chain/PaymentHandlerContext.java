@@ -1,7 +1,7 @@
 package com.bhurb.payments.application.payments.chain;
 
 
-import com.bhurb.payments.domain.model.entities.payments.Payment;
+import com.bhurb.payments.domain.model.entities.Payment;
 
 import java.util.HashMap;
 import java.util.Map;
