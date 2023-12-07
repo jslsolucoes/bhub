@@ -8,7 +8,7 @@ class DefaultFilterChain implements FilterChain {
     private final LinkedList<Filter> filters;
     private final FilterContext filterContext;
 
-    public DefaultFilterChain(List<Filter> filters, FilterContext filterContext) {
+    public DefaultFilterChain(final List<Filter> filters,final FilterContext filterContext) {
         this.filters = new LinkedList<>(filters);
         this.filterContext = filterContext;
     }
@@ -19,7 +19,7 @@ class DefaultFilterChain implements FilterChain {
         if (this.filters.isEmpty()) {
             return;
         }
-        var head = this.filters.removeFirst();
+        var head = this.filters.poll();
         head.doNext(this.filterContext, this);
     }
 }
