@@ -1,5 +1,6 @@
-package com.bhurb.payments.domain.events;
+package com.bhurb.payments.domain.events.listeners;
 
+import com.bhurb.payments.domain.events.UpgradeMembershipEvent;
 import org.slf4j.Logger;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

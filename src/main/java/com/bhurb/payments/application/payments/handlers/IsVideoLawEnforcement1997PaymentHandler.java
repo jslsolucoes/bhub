@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
 
-@PaymentHandlerPriority(after = {IsPhysicalPaymentHandler.class})
+@PaymentHandlerPriority(after = {RoyaltDeliveryDocPaymentHandler.class})
 @Component
 public class IsVideoLawEnforcement1997PaymentHandler implements PaymentHandler {
 
@@ -22,7 +22,7 @@ public class IsVideoLawEnforcement1997PaymentHandler implements PaymentHandler {
         var product = payment.product();
         var isVideoLawEnforcement1997Spec = new IsVideoLawEnforcement1997Spec();
         if (isVideoLawEnforcement1997Spec.isSatisfiedBy(product)) {
-            LOGGER.debug("isVideoLawEnforcement1997 = true add Primeiros Socorros");
+            LOGGER.debug("add Primeiros Socorros video to delivery doc");
         }
         paymentHandlerChain.next();
     }

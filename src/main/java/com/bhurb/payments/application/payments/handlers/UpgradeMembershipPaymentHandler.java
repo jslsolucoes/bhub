@@ -3,11 +3,13 @@ package com.bhurb.payments.application.payments.handlers;
 import com.bhurb.payments.application.payments.chain.PaymentHandler;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerChain;
 import com.bhurb.payments.application.payments.chain.PaymentHandlerContext;
+import com.bhurb.payments.application.payments.chain.PaymentHandlerPriority;
 import com.bhurb.payments.domain.events.EventDispatcher;
 import com.bhurb.payments.domain.model.entities.payments.specs.IsMembershipUpgradeSpec;
 import org.springframework.stereotype.Component;
 
 
+@PaymentHandlerPriority(after = {NewMembershipPaymentHandler.class})
 @Component
 public class UpgradeMembershipPaymentHandler implements PaymentHandler {
 

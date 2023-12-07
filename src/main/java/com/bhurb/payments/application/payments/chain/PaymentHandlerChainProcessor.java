@@ -1,11 +1,14 @@
 package com.bhurb.payments.application.payments.chain;
 
 
+import org.slf4j.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentHandlerChainProcessor {
 
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(PaymentHandlerChainProcessor.class);
     private final Map<Class<? extends PaymentHandler>, PaymentHandler> paymentHandlers;
 
     public PaymentHandlerChainProcessor() {
@@ -23,6 +26,9 @@ public class PaymentHandlerChainProcessor {
         var topologicalSort = new TopologicalSort();
         topologicalSort.register(paymentHandlerClasses);
         var paymentHandlersWithPriority = topologicalSort.all();
+
+        LOGGER.debug("Handlers will run in this order {}", paymentHandlersWithPriority);
+
         var newPaymentHandlers = paymentHandlersWithPriority
                 .stream()
                 .map(this.paymentHandlers::get)

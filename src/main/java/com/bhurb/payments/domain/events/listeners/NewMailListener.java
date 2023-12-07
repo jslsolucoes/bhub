@@ -1,5 +1,6 @@
-package com.bhurb.payments.domain.events;
+package com.bhurb.payments.domain.events.listeners;
 
+import com.bhurb.payments.domain.events.NewMailEvent;
 import com.bhurb.payments.domain.notifications.MailNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
