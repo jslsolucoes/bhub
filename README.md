@@ -12,8 +12,9 @@ To run and build this project, the following dependencies must be installed:
 
 To build project:
 
+Extract project bhub.zip
+
 ```
-git clone https://github.com/jslsolucoes/bhub.git
 cd bhub
 mvn clean install docker:build
 ```
