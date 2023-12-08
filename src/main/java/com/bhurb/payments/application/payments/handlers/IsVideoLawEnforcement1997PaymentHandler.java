@@ -24,7 +24,7 @@ public class IsVideoLawEnforcement1997PaymentHandler implements PaymentHandler {
         var isVideoLawEnforcement1997Spec = new IsVideoLawEnforcement1997Spec();
         if (isVideoLawEnforcement1997Spec.isSatisfiedBy(product)) {
             LOGGER.debug("Adding free video to delivery doc");
-            var aprendendoAEsquiar = FreeVideo.APRENDENDO_A_ESQUIAR
+            var aprendendoAEsquiar = FreeVideo.PRIMEIROS_SOCORROS
                     .toDeliveryDocItem();
             payment.addItemToDeliveryDoc(aprendendoAEsquiar);
         }
@@ -32,7 +32,7 @@ public class IsVideoLawEnforcement1997PaymentHandler implements PaymentHandler {
     }
 
     enum FreeVideo {
-        APRENDENDO_A_ESQUIAR(157L, "Aprendendo a Esquiar");
+        PRIMEIROS_SOCORROS(157L, "Primeiros Socorros");
 
         private final Long refId;
         private final String name;

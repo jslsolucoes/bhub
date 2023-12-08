@@ -20,8 +20,8 @@ public abstract class AbstractTest {
         Assertions.assertTrue(condition);
     }
 
-    public void assertSuccess() {
-        assertTrue(true);
+    public void assertFalse(final boolean condition) {
+        Assertions.assertFalse(condition);
     }
 
     public Throwable assertThrows(final Class<? extends Throwable> expectedType, Executable executable) {
