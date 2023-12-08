@@ -1,5 +1,6 @@
 package com.bhurb.payments.domain.events;
 
+import com.bhurb.payments.domain.model.entities.DeliveryDoc;
 import com.bhurb.payments.domain.model.entities.MembershipPayment;
 
 public interface EventDispatcher {
@@ -13,6 +14,5 @@ public interface EventDispatcher {
     void upgradeMembership(final Long customerId,
                            final MembershipPayment.MembershipPlan membershipPlan);
 
-    void newBookRoyaltDeliveryDoc(final Long bookId,
-                                  final String author);
+    void newBookRoyaltDeliveryDoc(final DeliveryDoc deliveryDoc);
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class DeliveryDocItem {
+public class DeliveryDocItem implements Cloneable {
 
     @Id
     @GeneratedValue
@@ -37,7 +37,16 @@ public class DeliveryDocItem {
         this(null, null, null, null, null);
     }
 
+    public String name() {
+        return name;
+    }
+
     public DeliveryDocItem withDeliveryDoc(final DeliveryDoc deliveryDoc) {
         return new DeliveryDocItem(id, refId, name, isForFree, deliveryDoc);
+    }
+
+    @Override
+    public DeliveryDocItem clone() {
+        return new DeliveryDocItem(null, refId, name, isForFree, deliveryDoc);
     }
 }

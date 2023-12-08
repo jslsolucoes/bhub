@@ -1,13 +1,15 @@
 package com.bhurb.payments.domain.model.entities;
 
+import com.bhurb.payments.domain.model.valueobject.Email;
+
 import java.time.LocalDateTime;
 
 public class PaymentBuilder {
 
     private LocalDateTime createdAt;
     private ProductPayment productPayment;
-
     private CustomerPayment customerPayment;
+    private DeliveryDoc deliveryDoc;
 
     private PaymentBuilder() {
         createdAt = LocalDateTime.now();
@@ -24,7 +26,8 @@ public class PaymentBuilder {
                 customerPayment,
                 null,
                 productPayment,
-                null
+                null,
+                deliveryDoc
         );
     }
 
@@ -41,7 +44,7 @@ public class PaymentBuilder {
                 null,
                 null,
                 null,
-                null,
+                new Email("aa@aa.com"),
                 null,
                 null
         );
@@ -57,6 +60,23 @@ public class PaymentBuilder {
                 membershipPlan,
                 null
         );
+        return this;
+    }
+
+    public PaymentBuilder withDeliveryDoc() {
+        this.deliveryDoc = new DeliveryDoc();
+        return this;
+    }
+
+    public PaymentBuilder withVideo(final Long id,
+                                    final String name) {
+        this.productPayment = new VideoPayment(null, id, name, null);
+        return this;
+    }
+
+    public PaymentBuilder withMembership(final Long id,
+                                         final MembershipPayment.MembershipPlan membershipPlan) {
+        this.productPayment = new MembershipPayment(null, id, membershipPlan, null);
         return this;
     }
 }

@@ -112,7 +112,8 @@ public class CreateNewPaymentController {
                     customer,
                     amount,
                     productPayment,
-                    seller
+                    seller,
+                    null
             );
         }
 

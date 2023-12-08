@@ -1,6 +1,7 @@
 package com.bhurb.payments.infra.events;
 
 import com.bhurb.payments.domain.events.*;
+import com.bhurb.payments.domain.model.entities.DeliveryDoc;
 import com.bhurb.payments.domain.model.entities.MembershipPayment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -36,9 +37,8 @@ public class SpringEventDispatcher implements EventDispatcher {
     }
 
     @Override
-    public void newBookRoyaltDeliveryDoc(final Long bookId,
-                                         final String author) {
-        this.applicationContext.publishEvent(new NewBookRoyaltDeliveryDocEvent(bookId, author));
+    public void newBookRoyaltDeliveryDoc(final DeliveryDoc deliveryDoc) {
+        this.applicationContext.publishEvent(new NewBookRoyaltDeliveryDocEvent(deliveryDoc));
     }
 
 }

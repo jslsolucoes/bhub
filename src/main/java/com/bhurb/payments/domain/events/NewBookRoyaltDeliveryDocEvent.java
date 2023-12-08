@@ -1,12 +1,13 @@
 package com.bhurb.payments.domain.events;
 
+import com.bhurb.payments.domain.model.entities.DeliveryDoc;
 import org.springframework.context.ApplicationEvent;
 
 public class NewBookRoyaltDeliveryDocEvent extends ApplicationEvent
         implements DomainEvent<NewBookRoyaltDeliveryDocEvent.NewBookRoyaltDeliveryDocEventDetails> {
 
-    public NewBookRoyaltDeliveryDocEvent(final Long bookId, final String author) {
-        super(new NewBookRoyaltDeliveryDocEventDetails(bookId, author));
+    public NewBookRoyaltDeliveryDocEvent(final DeliveryDoc deliveryDoc) {
+        super(new NewBookRoyaltDeliveryDocEventDetails(deliveryDoc));
     }
 
     @Override
@@ -14,6 +15,6 @@ public class NewBookRoyaltDeliveryDocEvent extends ApplicationEvent
         return (NewBookRoyaltDeliveryDocEventDetails) getSource();
     }
 
-    public record NewBookRoyaltDeliveryDocEventDetails(Long bookId, String author) {
+    public record NewBookRoyaltDeliveryDocEventDetails(DeliveryDoc deliveryDoc) {
     }
 }

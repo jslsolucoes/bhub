@@ -3,6 +3,7 @@ package com.bhurb.payments.domain.model.entities;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 @Entity
@@ -12,6 +13,8 @@ public class VideoPayment extends ProductPayment {
     protected final String name;
     @NotNull
     private final Long refId;
+
+    private static final List<String> VIDEO_LAW_ENFORCEMENT_1997_NAME = List.of("Aprendendo a Esquiar");
 
     @Deprecated
     public VideoPayment() {
@@ -41,7 +44,8 @@ public class VideoPayment extends ProductPayment {
 
     @Override
     public boolean isVideoLawEnforcement1997() {
-        return "Aprendendo a Esquiar".equalsIgnoreCase(name);
+        return VIDEO_LAW_ENFORCEMENT_1997_NAME.stream()
+                .anyMatch(n -> n.equalsIgnoreCase(name));
     }
 
     @Override

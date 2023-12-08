@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
-public class DeliveryDoc {
+public class DeliveryDoc implements Cloneable {
 
     @Id
     @GeneratedValue
@@ -23,14 +25,19 @@ public class DeliveryDoc {
 
     @Deprecated
     public DeliveryDoc() {
-        this(null, null);
+        this(null, null, null);
     }
 
     public DeliveryDoc(final Long id,
+                       final Set<DeliveryDocItem> items,
                        final Payment payment) {
         this.id = id;
         this.payment = payment;
-        this.items = new HashSet<>();
+        this.items = Optional.ofNullable(items)
+                .orElse(new HashSet<>())
+                .stream()
+                .map(item -> item.withDeliveryDoc(this))
+                .collect(Collectors.toSet());
     }
 
     public DeliveryDoc addItem(final DeliveryDocItem item) {
@@ -38,4 +45,20 @@ public class DeliveryDoc {
         return this;
     }
 
+    public DeliveryDoc withPayment(final Payment payment) {
+        return new DeliveryDoc(id, items, payment);
+    }
+
+    @Override
+    public DeliveryDoc clone() {
+        var clonedItems = this.items
+                .stream()
+                .map(DeliveryDocItem::clone)
+                .collect(Collectors.toSet());
+        return new DeliveryDoc(id, clonedItems, payment);
+    }
+
+    public Set<DeliveryDocItem> items() {
+        return items;
+    }
 }

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
 
 @Entity
@@ -42,7 +43,7 @@ public class Payment {
     @Deprecated
     public Payment() {
         this(null, null, null,
-                null, null, null);
+                null, null, null, null);
     }
 
     public Payment(final Long id,
@@ -50,7 +51,8 @@ public class Payment {
                    final CustomerPayment customerPayment,
                    final BigDecimal amount,
                    final ProductPayment product,
-                   final SellerPayment sellerPayment) {
+                   final SellerPayment sellerPayment,
+                   final DeliveryDoc deliveryDoc) {
 
         this.id = id;
         this.createdAt = createdAt;
@@ -64,6 +66,9 @@ public class Payment {
         this.sellerPayment = Optional.ofNullable(sellerPayment)
                 .map(sll -> sll.withPayment(this))
                 .orElse(null);
+        this.deliveryDoc = Optional.ofNullable(deliveryDoc)
+                .map(dd -> dd.withPayment(this))
+                .orElse(null);
     }
 
     public void addComission(final Comission comission) {
@@ -71,8 +76,12 @@ public class Payment {
     }
 
     public Payment createNewDeliveryDoc() {
-        this.deliveryDoc = new DeliveryDoc(null, this);
+        this.deliveryDoc = new DeliveryDoc(null, new HashSet<>(), this);
         return this;
+    }
+
+    public DeliveryDoc deliveryDoc() {
+        return this.deliveryDoc;
     }
 
     public Payment addItemToDeliveryDoc(final DeliveryDocItem deliveryDocItem) {

@@ -24,9 +24,9 @@ public class IsVideoLawEnforcement1997PaymentHandler implements PaymentHandler {
         var isVideoLawEnforcement1997Spec = new IsVideoLawEnforcement1997Spec();
         if (isVideoLawEnforcement1997Spec.isSatisfiedBy(product)) {
             LOGGER.debug("Adding free video to delivery doc");
-            var aprendendoAEsquiar = FreeVideo.PRIMEIROS_SOCORROS
+            var primeirosSocorros = FreeVideo.PRIMEIROS_SOCORROS
                     .toDeliveryDocItem();
-            payment.addItemToDeliveryDoc(aprendendoAEsquiar);
+            payment.addItemToDeliveryDoc(primeirosSocorros);
         }
         paymentHandlerChain.next();
     }
