@@ -20,6 +20,12 @@ public class PaymentHandlerChainProcessor {
     }
 
     public void next(final PaymentHandlerContext paymentHandlerContext) {
+        /*
+            * 1. Get all the payment handlers
+            * 2. Sort them by priority using topological sort
+            * 3. Create a new chain with the sorted payment handlers
+            * 4. Run the chain
+         */
         var paymentHandlerClasses = this.paymentHandlers
                 .keySet()
                 .toArray(Class<?>[]::new);

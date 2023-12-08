@@ -167,3 +167,5 @@ class CreateNewPaymentControllerTest extends AbstractMvcIntegrationTest {
                 .andExpect(jsonPath("$.id").value(greaterThan(0)));
     }
 }
+
+//LogPaymentHandler -> NewMembershipPaymentHandler -> DeliveryDocPaymentHandler -> UpgradeMembershipPaymentHandler -> RoyaltDeliveryDocPaymentHandler -> IsVideoLawEnforcement1997PaymentHandler -> ComissionPaymentHandler -> FinishPaymentHandler
