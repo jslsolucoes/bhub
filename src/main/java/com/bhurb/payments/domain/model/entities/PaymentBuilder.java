@@ -54,9 +54,9 @@ public class PaymentBuilder {
     public PaymentBuilder withCustomerWithMembership(final MembershipPayment.MembershipPlan membershipPlan) {
         this.customerPayment = new CustomerPayment(
                 null,
+                1L,
                 null,
-                null,
-                null,
+                new Email("aa@aa.com"),
                 membershipPlan,
                 null
         );

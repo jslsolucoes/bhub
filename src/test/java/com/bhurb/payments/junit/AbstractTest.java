@@ -41,4 +41,11 @@ public abstract class AbstractTest {
     public String eq(final String value) {
         return Mockito.eq(value);
     }
+    public Long eq(final Long value) {
+        return Mockito.eq(value);
+    }
+
+    public <T> T eq(final T value) {
+        return Mockito.eq(value);
+    }
 }

@@ -29,7 +29,7 @@ public class UpgradeMembershipPaymentHandler implements PaymentHandler {
 
         var isMembershipUpgradeSpec = new IsMembershipUpgradeSpec();
         if (isMembershipUpgradeSpec.isSatisfiedBy(product)) {
-            var customerId = customer.id();
+            var customerId = customer.refId();
             var membershipPayment = product.asMembershipPayment();
             var membershipPlan = membershipPayment.membershipPlan();
             eventDispatcher.upgradeMembership(customerId, membershipPlan);

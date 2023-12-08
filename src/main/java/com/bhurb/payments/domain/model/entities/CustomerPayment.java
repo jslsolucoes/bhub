@@ -56,6 +56,10 @@ public class CustomerPayment {
         return email;
     }
 
+    public Long refId() {
+        return refId;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
