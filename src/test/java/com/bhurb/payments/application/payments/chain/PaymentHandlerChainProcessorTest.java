@@ -13,7 +13,7 @@ class PaymentHandlerChainProcessorTest extends AbstractTest {
 
     @Test
     @DisplayName("Chain should call payment handler in any order when all priorities is not defined")
-    void chainShouldCallPaymentHandlerInAnyOrderWhenAllPrioritiesIsNotDefined(){
+    void chainShouldCallPaymentHandlerInAnyOrderWhenAllPrioritiesIsNotDefined() {
 
         var called = new ArrayList<PaymentHandler>();
 

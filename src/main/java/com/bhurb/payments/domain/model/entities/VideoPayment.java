@@ -9,10 +9,9 @@ import java.util.Optional;
 public class VideoPayment extends ProductPayment {
 
     @NotNull
-    private final Long refId;
-
-    @NotNull
     protected final String name;
+    @NotNull
+    private final Long refId;
 
     @Deprecated
     public VideoPayment() {

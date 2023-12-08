@@ -33,11 +33,11 @@ public class DeliveryDocItem {
         this.isForFree = isForFree;
     }
 
-    public DeliveryDocItem withDeliveryDoc(final DeliveryDoc deliveryDoc) {
-        return new DeliveryDocItem(id, refId, name, isForFree, deliveryDoc);
-    }
-
     public DeliveryDocItem() {
         this(null, null, null, null, null);
+    }
+
+    public DeliveryDocItem withDeliveryDoc(final DeliveryDoc deliveryDoc) {
+        return new DeliveryDocItem(id, refId, name, isForFree, deliveryDoc);
     }
 }

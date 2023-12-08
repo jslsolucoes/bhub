@@ -16,12 +16,10 @@ public class SellerPayment {
 
     @NotNull
     private final Long refId;
-
-    private String name;
-
     @OneToOne
     @NotNull
     private final Payment payment;
+    private String name;
 
     @Deprecated
     public SellerPayment() {
