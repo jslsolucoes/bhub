@@ -57,7 +57,8 @@ public class TopologicalSort {
             graph.put(from, to);
         }
 
-        public void addEdges(E from, E... tos) {
+        @SafeVarargs
+        public final void addEdges(E from, E... tos) {
 
             if (tos.length == 0) {
                 addEdge(from, null);
